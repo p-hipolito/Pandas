@@ -1,0 +1,15 @@
+import pandas as pd #importa pandas com um formato encurtado
+tabela1 = pd.read_csv('antigo.csv', sep = ';') #lê tabela dos itens antigos
+tabela2=pd.read_csv('novo.csv',sep=';') #lê tabela com os novos itens
+#print(tabela1)
+#print(tabela2)
+print(tabela1.columns) #Mostra os cabeçalhos
+print(tabela2.columns)
+print(tabela1['Produto']) #Mostra apenas a coluna selecionada
+print(tabela2.Produto) #Outra forma de mostrar a coluna
+tabela1.drop(['SKU','EAN','EH 1º Nível','Preço (R$)','EH 3º Nível','EH 2º Nível','Estoque','Ruptura (R$)'], axis=1)
+#Retirando as colunas que não irei utilizar da primeira tabela
+tabela2.drop(['Estoque'], axis=1) #Retirar a coluna que não irei utilizar na segunda tabela
+dfmerged=tabela1.merge(tabela2,on='Produto')#Unindo os itens que existem em ambas as tabelas
+print(dfmerged)
+dfmerged.to_csv('Ruptura.csv',encoding='utf+8') #Salvando o novo arquivo.csv com os produtos recorrentes
